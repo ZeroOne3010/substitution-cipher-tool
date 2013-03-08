@@ -1,0 +1,39 @@
+/* Input */
+
+textarea {
+	font-size: larger;
+}
+
+/* Substitution rules */
+
+div#substitution table {
+	border: solid 1px #aaa;
+	border-collapse: collapse;
+	font-family: sans-serif;
+	margin-top: 1em;
+}
+
+div#substitution table th,
+div#substitution table td {
+	border: solid 1px #aaa;
+	height: 1em;
+	width: 1em;
+}
+
+div#substitution table input {
+	font-family: monospace;
+	font-size: larger;
+	width: 1em;
+}
+
+/* Result */
+
+div#result {
+	background-color: #f3f3f3;
+	border: solid 1px #333;
+	color: #000;
+	font-family: monospace;
+	font-size: larger;
+	margin-top: 1em;
+	padding: .1em;
+}
