@@ -2,6 +2,9 @@ var BACKSPACE = 8;
 var TAB = 9;
 var CR = 13;
 
+var finnishLettersByFrequency = "aitneslokuämvrjhypdögbfcwåqzx"; // http://www.cs.tut.fi/~jkorpela/kielikello/kirjtil.html
+var englishLettersByFrequency = "etaoinshrdlcumwfgypbvkjxqz"; // http://en.wikipedia.org/wiki/Letter_frequency
+
 // Each cipher text symbol is assigned an unique number,
 // to be used in CSS classes. These two variables are for that:
 var characterIndexMap = {};
@@ -22,15 +25,19 @@ function calculateCharacterFrequencies(textArray) {
 
 function createSubstitutionTable(textArray) {
   var frequencyMap = calculateCharacterFrequencies(textArray);
-  var cipherCharacterRow = $("<tr><th>Cipher</th></tr>");
-  var amountRow = $("<tr><th>Amount</th></tr>");
+  var cipherCharacterRow = $("<tr class='cipher'><th>Cipher</th></tr>");
+  var amountRow = $("<tr class='amount'><th>Amount</th></tr>");
   var inputRow = $("<tr class='plaintext'><th>Plaintext</th></tr>");
   console.clear();
   $.each(frequencyMap, function(symbol, amount) {
     if (!isWhitespace(symbol)) {
       console.log(symbol + ": " + amount);
-      cipherCharacterRow.append("<th>" + symbol + "</th>");
-      amountRow.append("<td>" + amount + "</td>");
+      var cipherCharacterCell = $("<th>" + symbol + "</th>");
+      var amountCell = $("<td>" + amount + "</td>");
+      cipherCharacterCell.addClass(getClassForCharacter(symbol));
+      cipherCharacterRow.append(cipherCharacterCell);
+      amountCell.addClass(getClassForCharacter(symbol));
+      amountRow.append(amountCell);
       inputRow.append(getInputCellForSymbol(symbol));
     }
   });
@@ -45,7 +52,7 @@ function isWhitespace(symbol) {
 }
 
 function getInputCellForSymbol(symbol) {
-  var className = "c" + characterIndexMap[symbol];
+  var className = getClassForCharacter(symbol);
   var inputCell = $("<td></td>");
   var input = $("<input type='text' maxlength='1'/>");
   inputCell.addClass(className);
@@ -53,6 +60,10 @@ function getInputCellForSymbol(symbol) {
   input.val(symbol);
   inputCell.append(input);
   return inputCell;
+}
+
+function getClassForCharacter(symbol) {
+  return "c" + characterIndexMap[symbol];
 }
 
 function createResultElements(textArray) {
@@ -110,11 +121,41 @@ function analyze() {
   var textArray = $('textarea').val().split("");
   createSubstitutionTable(textArray);
   createResultElements(textArray);
-  $('div#substitution table').show();
+  $('div#substitution').show();
   $('div#result').show();
   registerChangeHandlers();
 }
 
+function guessFinnish() {
+  guess(finnishLettersByFrequency.split(""));
+}
+
+function guessEnglish() {
+  guess(englishLettersByFrequency.split(""));
+}
+
+function guess(letters) {
+  var $amounts = $("tr.amount td");
+  var array = [];
+  $.each($amounts, function(index) {
+    var entry = {
+      "class" : $(this).attr("class"),
+      "amount" : $(this).text()
+    };
+    array.push(entry);
+  });
+  array.sort(function(a, b) {
+    return b.amount - a.amount;
+  });
+  $.each(array, function(index, value) {
+    var inputLocator = "input." + value.class;
+    $(inputLocator).val(letters[index]);
+    updatePlaintextByInput(inputLocator);
+  });
+}
+
 $(document).ready(function() {
   $('input#analyze').click(analyze);
+  $('input#guessFinnish').click(guessFinnish);
+  $('input#guessEnglish').click(guessEnglish);
 });

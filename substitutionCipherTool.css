@@ -26,6 +26,10 @@ div#substitution table input {
 	width: 1em;
 }
 
+fieldset {
+	width: 26em;
+}
+
 /* Result */
 
 div#result {
