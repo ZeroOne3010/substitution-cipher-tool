@@ -8,3 +8,9 @@ shifted (by 13 and 3 places, respectively) but not shuffled in any other way. Us
 this tool it is easy to try various substitution alphabets and to see the resulting
 plaintext immediately. This tool does not support solving Vigenère ciphers or any 
 other polyalphabetic ciphers.
+
+The following external libraries are used:
+* [jQuery](http://jquery.com/)
+* [jQuery UI](http://jqueryui.com/)
+* [QUnit](http://qunitjs.com/)
+
