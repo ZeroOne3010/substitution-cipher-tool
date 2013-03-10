@@ -15,5 +15,22 @@
 	<div id="qunit-testrunner-toolbar"></div>
 	<h2 id="qunit-userAgent"></h2>
 	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">
+		<div id="input">
+			<textarea rows="4" cols="80"></textarea><br/>
+			<input type="button" id="analyze" value="Analyze" />
+		</div>
+		<div id="substitution" style="display: none;">
+			<table>
+			</table>
+			<fieldset>
+				<legend>Fill plaintext letter guesses based on cipher text letter frequencies</legend>
+				<input type="button" id="guessFinnish" value="Guess: Finnish" />
+				<input type="button" id="guessEnglish" value="Guess: English" />
+			</fieldset>
+		</div>
+		<div id="result" style="display: none;">
+		</div>
+	</div>
 </body>
 </html>
