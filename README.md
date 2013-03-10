@@ -9,6 +9,11 @@ this tool it is easy to try various substitution alphabets and to see the result
 plaintext immediately. This tool does not support solving Vigenère ciphers or any 
 other polyalphabetic ciphers.
 
+You should be able to test this tool right away
+[here](http://htmlpreview.github.com/?https://github.com/ZeroOne3010/substitution-cipher-tool/blob/master/index.html)
+and to run the test suite for this project
+[here](http://htmlpreview.github.com/?https://github.com/ZeroOne3010/substitution-cipher-tool/blob/master/tests.html)
+
 The following external libraries are used:
 * [jQuery](http://jquery.com/)
 * [jQuery UI](http://jqueryui.com/)
