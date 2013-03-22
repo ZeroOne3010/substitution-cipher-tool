@@ -135,23 +135,34 @@ function guessEnglish() {
 }
 
 function guess(letters) {
+  $.fx.off = true;
   var $amounts = $("tr.amount td");
-  var array = [];
+  var cipherTextLetterAmounts = [];
   $.each($amounts, function(index) {
+    var amount = parseFloat($(this).text());
+    amount = addVariation(amount);
     var entry = {
       "class" : $(this).attr("class"),
-      "amount" : $(this).text()
+      "amount" : amount,
     };
-    array.push(entry);
+    cipherTextLetterAmounts.push(entry);
   });
-  array.sort(function(a, b) {
+  cipherTextLetterAmounts.sort(function(a, b) {
     return b.amount - a.amount;
   });
-  $.each(array, function(index, value) {
+  $.each(cipherTextLetterAmounts, function(index, value) {
     var inputLocator = "input." + value.class;
     $(inputLocator).val(letters[index]);
     updatePlaintextByInput(inputLocator);
   });
+  $.fx.off = false;
+}
+
+function addVariation(number) {
+  var VARIATION = 0.05;
+  var randomAmount = 2 * VARIATION * number;
+  number = (number - VARIATION) * number + (Math.random() * randomAmount);
+  return number;
 }
 
 $(document).ready(function() {
