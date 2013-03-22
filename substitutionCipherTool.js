@@ -93,18 +93,26 @@ function registerChangeHandlers() {
       $(this).val("");
     }
   });
+  $('tr.plaintext input').click(function(event) {
+    var className = $(this).attr("class");
+    highlightPlaintextByClass(className);
+  });
   $('div#result span').click(function() {
     var className = $(this).attr("class");
     var input = "div#substitution .plaintext input." + className;
-    var plaintext = "span." + className;
     $(input).focus();
     $(input).effect("highlight", {
       color : "#FFFF00"
     }, 500);
-    $(plaintext).effect("highlight", {
-      color : "#FFFF00"
-    }, 500);
+    highlightPlaintextByClass(className);
   });
+}
+
+function highlightPlaintextByClass(letterClass) {
+  var plaintext = "span." + letterClass;
+  $(plaintext).effect("highlight", {
+    color : "#FFFF00"
+  }, 500);
 }
 
 function updatePlaintextByInput(element) {
