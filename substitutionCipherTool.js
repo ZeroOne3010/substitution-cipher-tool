@@ -84,6 +84,7 @@ function registerChangeHandlers() {
       return;
     }
     updatePlaintextByInput(this);
+    scanAndAlertForDuplicateLetterAssignments();
   });
   $('tr.plaintext input').keydown(function(event) {
     if (event.which == CR || event.which == BACKSPACE || event.which == TAB) {
@@ -94,7 +95,14 @@ function registerChangeHandlers() {
     }
   });
   $('tr.plaintext input').click(function(event) {
-    var className = $(this).attr("class");
+    var classNames = $(this).attr("class");
+    var classesArray = classNames.split(" ");
+    var className = "";
+    $.each(classesArray, function(index, classItem) {
+      if (classItem.indexOf('c') == 0) {
+        className = classItem;
+      }
+    });
     highlightPlaintextByClass(className);
   });
   $('div#result span').click(function() {
@@ -163,6 +171,7 @@ function guess(letters) {
     $(inputLocator).val(letters[index]);
     updatePlaintextByInput(inputLocator);
   });
+  scanAndAlertForDuplicateLetterAssignments();
   $.fx.off = false;
 }
 
@@ -171,6 +180,26 @@ function addVariation(number) {
   var randomAmount = 2 * VARIATION * number;
   number = (number - VARIATION) * number + (Math.random() * randomAmount);
   return number;
+}
+
+function scanAndAlertForDuplicateLetterAssignments() {
+  var usedLetters = {};
+  var $inputs = $('#substitution .plaintext input');
+  $.each($inputs, function(index) {
+    $(this).parent().removeClass('duplicate');
+  });
+  $.each($inputs, function(index) {
+    var letter = $(this).val();
+    if (usedLetters[letter] == undefined) {
+      usedLetters[letter] = 1;
+    } else {
+      $.each($inputs, function() {
+        if ($(this).val() == letter) {
+          $(this).parent().addClass('duplicate');
+        }
+      });
+    }
+  });
 }
 
 $(document).ready(function() {

@@ -30,6 +30,10 @@ fieldset {
 	width: 28em;
 }
 
+.duplicate input {
+	background-color: #ff5c5c;
+}
+
 /* Result */
 
 div#result {
