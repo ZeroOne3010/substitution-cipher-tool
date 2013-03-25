@@ -138,7 +138,7 @@ function analyze() {
   createSubstitutionTable(textArray);
   createResultElements(textArray);
   $('div#substitution').show();
-  $('div#result').show();
+  $('div#resultContainer').show();
   registerChangeHandlers();
 }
 
@@ -206,4 +206,5 @@ $(document).ready(function() {
   $('input#analyze').click(analyze);
   $('input#guessFinnish').click(guessFinnish);
   $('input#guessEnglish').click(guessEnglish);
+  $('div#resultContainer').width($('div#input textarea').width());
 });
