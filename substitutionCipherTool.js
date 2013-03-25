@@ -1,7 +1,3 @@
-var BACKSPACE = 8;
-var TAB = 9;
-var CR = 13;
-
 var finnishLettersByFrequency = "aitneslokuämvrjhypdögbfcwåqzx"; // http://www.cs.tut.fi/~jkorpela/kielikello/kirjtil.html
 var englishLettersByFrequency = "etaoinshrdlcumwfgypbvkjxqz"; // http://en.wikipedia.org/wiki/Letter_frequency
 
@@ -78,16 +74,20 @@ function createResultElements(textArray) {
   });
 }
 
+function shouldDiscardKeyEvent(event) {
+  return event.which < 32;
+}
+
 function registerChangeHandlers() {
   $('tr.plaintext input').keyup(function(event) {
-    if (event.which == CR || event.which == BACKSPACE || event.which == TAB) {
+    if (shouldDiscardKeyEvent(event)) {
       return;
     }
     updatePlaintextByInput(this);
     scanAndAlertForDuplicateLetterAssignments();
   });
   $('tr.plaintext input').keydown(function(event) {
-    if (event.which == CR || event.which == BACKSPACE || event.which == TAB) {
+    if (shouldDiscardKeyEvent(event)) {
       return;
     }
     if ($(this).val() != "") {
