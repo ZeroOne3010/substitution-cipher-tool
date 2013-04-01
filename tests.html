@@ -4,10 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>QUnit test suite for the substitution cipher tool</title>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.11.0.js"></script>
 	<script type="text/javascript" src="substitutionCipherTool.js"></script>
 	<script type="text/javascript" src="tests.js"></script>
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/qunit/qunit-1.11.0.css" />
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
 	<h1 id="qunit-header">QUnit Test Suite</h1>
@@ -19,6 +21,7 @@
 		<div id="input">
 			<textarea rows="4" cols="80"></textarea><br/>
 			<input type="button" id="analyze" value="Analyze" />
+			<input type="button" id="rotn" value="Show ROTn" />
 		</div>
 		<div id="substitution" style="display: none;">
 			<table>
@@ -33,6 +36,7 @@
 			<div id="result">
 			</div>
 		</div>
+		<div id="rotDialog" style="display: none;" title="ROTn"></div>
 	</div>
 </body>
 </html>

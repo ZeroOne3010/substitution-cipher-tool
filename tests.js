@@ -1,10 +1,18 @@
-module("JavaScript and HTML");
+module("JavaScript and HTML", {
+  setup : function() {
+    init();
+    equal($("div#substitution:visible").size(), 0, "Substitution table should not be visible initially");
+    equal($("div#result:visible").size(), 0, "Plaintext should not be visible initially");
+    equal($("div#rotDialog:visible").size(), 0, "ROTn dialog should not be visible initially");
+  },
+  teardown : function() {
+    $("div.ui-dialog").remove();
+  }
+});
 
-test("Pressing the Analyze button should show the correct substitution table and plaintext for 'aaaaaaaabbbbc'", 13,
+test("Pressing the Analyze button should show the correct substitution table and plaintext for 'aaaaaaaabbbbc'", 14,
     function() {
-      equal($("div#substitution:visible").size(), 0, "Substitution table should not be visible initially");
-      equal($("div#result:visible").size(), 0, "Plaintext should not be visible initially");
-      $("textarea").val("aaaaaaaabbbbc")
+      $("textarea").val("aaaaaaaabbbbc");
       $("div#input input#analyze").click();
       equal($("div#substitution:visible").size(), 1, "Substitution table should be visible after the button is clicked");
       equal($("div#result:visible").size(), 1, "Plaintext should be visible after the button is clicked");
@@ -22,6 +30,15 @@ test("Pressing the Analyze button should show the correct substitution table and
         equal($plaintext.val(), letter, "There should be a plaintext input box for '" + letter + "'");
       });
     });
+
+test("Pressing the ROTn button should show the correct results", 7, function() {
+  $("textarea").val("abc ABC [@`{");
+  $("div#input input#rotn").click();
+  equal($("div#rotDialog").size(), 1, "ROTn dialog should be visible after the button is clicked");
+  equal($(".rot1").html(), "bcd BCD [@`{", "ROT1 should work correctly");
+  equal($(".rot13").html(), "nop NOP [@`{", "ROT13 should work correctly");
+  equal($(".rot25").html(), "zab ZAB [@`{", "ROT25 should work correctly");
+});
 
 module("Just plain JavaScript");
 

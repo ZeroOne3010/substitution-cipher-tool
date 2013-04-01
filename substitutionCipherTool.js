@@ -202,9 +202,55 @@ function scanAndAlertForDuplicateLetterAssignments() {
   });
 }
 
-$(document).ready(function() {
+function rotButton() {
+  var text = $('textarea').val();
+  $('div#rotDialog').html("");
+  for ( var i = 1; i <= 25; i++) {
+    var result = "<div class='rot'>ROT" + i + " <span class='minus'>(-" + (26 - i) + ")</span>: ";
+    result += "<span class='rotResult rot" + i + "'>" + rot(i, text) + "</span></div>";
+    $('div#rotDialog').append(result);
+  }
+  $('div#rotDialog').dialog({
+    minWidth : 380
+  });
+}
+
+function rot(n, text) {
+  var A = 65;
+  var Z = 90;
+  var a = 97;
+  var z = 122;
+  var result = "";
+  for ( var i = 0; i < text.length; i++) {
+    var letter = text.substr(i, 1);
+    letter = shift(n, letter, a, z);
+    letter = shift(n, letter, A, Z);
+    console.log(text.substr(i, 1) + " -> " + letter);
+    result += letter;
+  }
+  return result;
+}
+
+function shift(n, letter, min, max) {
+  var charCode = letter.charCodeAt(0);
+  if (charCode >= min && charCode <= max) {
+    var newCharCode = charCode + n;
+    if (newCharCode > max) {
+      newCharCode = min + (newCharCode % (max + 1));
+    }
+    letter = String.fromCharCode(newCharCode);
+  }
+  return letter;
+}
+
+function init() {
   $('input#analyze').click(analyze);
+  $('input#rotn').click(rotButton);
   $('input#guessFinnish').click(guessFinnish);
   $('input#guessEnglish').click(guessEnglish);
   $('div#resultContainer').width($('div#input textarea').width());
+}
+
+$(document).ready(function() {
+  init();
 });

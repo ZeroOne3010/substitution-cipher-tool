@@ -16,6 +16,17 @@ textarea {
 	font-size: larger;
 }
 
+/* ROTn */
+
+.rot {
+	font-size: small;
+	font-family: monospace;
+}
+
+.minus {
+	color: gray;
+}
+
 /* Substitution rules */
 
 div#substitution table {

@@ -7,12 +7,14 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="substitutionCipherTool.js"></script>
 	<link rel="stylesheet" type="text/css" href="substitutionCipherTool.css" />
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
 <div id="input">
 	<div class="info"><span>&#x24d8;</span> Enter the ciphertext here:</div>
 	<textarea rows="4" cols="90"></textarea><br/>
 	<input type="button" id="analyze" value="Analyze" />
+	<input type="button" id="rotn" value="Show ROTn" />
 </div>
 
 <div id="substitution" style="display: none;">
@@ -37,5 +39,7 @@
 
 	</div>
 </div>
+
+<div id="rotDialog" style="display: none;" title="ROTn"></div>
 </body>
 </html>
